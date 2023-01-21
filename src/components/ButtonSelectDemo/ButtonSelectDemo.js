@@ -7,25 +7,33 @@ import Select from '@mui/material/Select';
 import { Stack } from '@mui/system';
 import { Button } from '@mui/material';
 import { KeyboardArrowDown } from '@mui/icons-material';
+import "./buttonSelectDemo.css";
 
 export default function ButtonSelectDemo() {
   const [age, setAge] = React.useState('Choose');
+  const [selected, setSelected] = React.useState('Choose');
   const [show, setShow] = React.useState(false);
+  console.log(age)
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+  // switch (selected) {
+  //   case value:
+      
+  //     break;
+  
+  //   default:
+  //     break;
+  // }
 
   return (
     <Box sx={{ minWidth: 120 }}>
-      <Button onClick={() => setShow(!show)} endIcon=<KeyboardArrowDown /> id="demo-simple-select" labelId="demo-simple-select-label" sx={{ backgroundColor: "white", color: "black", border: "1px solid lightgray", marginBottom: "10px" }}>{age}</Button>
+      <Button onClick={() => setShow(!show)} endIcon=<KeyboardArrowDown /> sx={{ minWidth: "100px", backgroundColor: "white", color: "black", border: "1px solid lightgray", marginBottom: "10px" }}>{age}</Button>
 
-      {show && <Stack className="shadow" sx={{backgroundColor:"lightgray" ,borderRadius:"5px" , position:"absolute" , boxShadow:""}}>
+      {show && <Stack className='shadow' sx={{ backgroundColor: "white", borderRadius: "5px", position: "absolute", boxShadow: "" }}>
 
-        <MenuItem value="110">110</MenuItem>
-        <MenuItem value="120">120</MenuItem>
-        <MenuItem value="130">130</MenuItem>
-        <MenuItem value="140">140</MenuItem>
+        <MenuItem onClick={(e) => setAge(e.target.value)} sx={{ minWidth: "100px" }} value={"1"}>Today</MenuItem>
+        <MenuItem onClick={(e) => setAge(e.target.value)} sx={{ minWidth: "100px" }} value={"2"}>Monday</MenuItem>
+        <MenuItem onClick={(e) => setAge(e.target.value)} sx={{ minWidth: "100px" }} value={"3"}>Tuesday</MenuItem>
+        <MenuItem onClick={(e) => setAge(e.target.value)} sx={{ minWidth: "100px" }} value={"4"}>wednesday</MenuItem>
       </Stack>}
 
     </Box>
