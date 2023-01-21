@@ -28,6 +28,8 @@ export default function InnerMenu({setInBetween}) {
         setAnchorEl(null);
         if(index === 3){
             setInBetween(true);
+        }else{
+            setInBetween(false);
         }
     };
 

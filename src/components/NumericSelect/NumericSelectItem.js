@@ -40,7 +40,7 @@ export default function NumericSelectItem() {
                     aria-controls="lock-menu"
                     aria-expanded={open ? 'true' : undefined}
                     onClick={handleClickListItem}
-                    sx={{ border: "0.5px solid lightgray", borderRadius: "7px", fontSize: "0.9rem" }}
+                    sx={{ border: "0.5px solid lightgray", borderRadius: "7px", fontSize: "0.9rem" , color:"black"}}
                 >
                     {range === 0 ? "Amount" : range }
                 </Button>
@@ -74,16 +74,16 @@ export default function NumericSelectItem() {
                     </div>
 
                     {inBetween && <>
-                        <MenuItem>
+                        <Stack>
                             <CustomizedSlider/>
-                        </MenuItem>
+                        </Stack>
 
-                        <MenuItem>
+                        <Stack>
                             <div className='input-cont'>
                                 <input className='input input-number' value={range} placeholder='$ 0.00' type="number" name="" id="" />
                                 <input className='input input-number' value={range} placeholder='$ 0.00' type="number" name="" id="" />
                             </div>
-                        </MenuItem>
+                        </Stack>
                     </>}
                 </Box>
             </Menu>

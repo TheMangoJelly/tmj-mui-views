@@ -1,6 +1,7 @@
 // import UseSelect from "./DemoSelect";
 import ButtonSelect from "./components/ButtonSelect/ButtonSelect";
 import ButtonSelectDemo from "./components/ButtonSelectDemo/ButtonSelectDemo";
+import CalenderComponent from "./components/DateList/CalenderComponent";
 import DateListMenu from "./components/DateList/DateListMenu";
 import MultiSelectListMenu from "./components/MultiSelectListMenu/MultiSelectListMenu";
 import InnerMenu from "./components/NumericSelect/InnerMenu";
@@ -19,7 +20,7 @@ function App() {
       {/* <MultiSelectListMenu /> */}
       <NumericSelectItem />
       {/* <DateListMenu /> */}
-
+      {/* <CalenderComponent/> */}
     </div>
   );
 }
