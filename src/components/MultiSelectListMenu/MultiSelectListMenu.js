@@ -17,9 +17,7 @@ const options = [
     "Wednesday",
     "Thursdays",
 ];
-const suggestion = [
-
-];
+const suggestion = [];
 
 export default function MultiSelectListMenu() {
     const [anchorEl, setAnchorEl] = React.useState(null);

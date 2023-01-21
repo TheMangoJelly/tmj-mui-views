@@ -1,0 +1,28 @@
+.input-cont {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    height: 30px;
+}
+
+.input-cont:hover {
+    background-color: transparent;
+}
+
+.input-number{
+    border: 0.5px solid gray;
+}
+
+.input {
+    outline: none;
+    background-color: white;
+    border-radius: 5px;
+    padding: 2px 4px;
+    height: 100%;
+
+}
+
+
+input{
+    outline: none;
+}
