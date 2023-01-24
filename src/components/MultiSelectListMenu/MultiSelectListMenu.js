@@ -1,6 +1,5 @@
 import * as React from 'react';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
@@ -9,35 +8,51 @@ import { Check, KeyboardArrowDown, Search } from '@mui/icons-material';
 import { Typography } from '@mui/material';
 import { Stack, Box } from '@mui/system';
 import "./style.css";
+import { sub } from 'date-fns';
 
 
-export default function MultiSelectListMenu({ options }) {
-
-    const [query, setQuery] = React.useState(options);
-    const [suggestion, setSuggestion] = React.useState([]);
-    let filterArray = [...options];
-
+export default function MultiSelectListMenu({ queryMulti, setQueryMulti, options }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [selectedIndex, setSelectedIndex] = React.useState(1);
+
+    const [suggestion, setSuggestion] = React.useState([]);
+    const [searchText, setSearchText] = React.useState('');
+    let forSugges = [...suggestion];
+
+    const [filteredArr, SetFilteredArr] = React.useState(options);
+    let forFilter = [];
 
     const open = Boolean(anchorEl);
     const handleClickListItem = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleMenuItemClick = (event, index) => {
-        setSelectedIndex(index);
-        console.log(index)
-        suggestion.push(options[index]);
-        options[index] = null;
+    const handleMenuItemClick = (event, object) => {
+        // Handle Menu
+        setSuggestion([...suggestion, object])
+        forFilter = filteredArr.filter((obj) => obj.id !== object.id);
+        SetFilteredArr([...forFilter]);
+        setQueryMulti([...queryMulti, object.desc]);
     };
-    const handleSugesstionItemClick = (event, index) => {
-        setSelectedIndex(index);
-        console.log(index)
-        options.push(suggestion[index]);
-        suggestion[index] = null;
 
+    const handleSugesstionItemClick = (event, object) => {
+        // Handle Suggestion ------------------------------
+        SetFilteredArr([...filteredArr, object])
+        forSugges = suggestion.filter((obj) => obj.id !== object.id);
+        setSuggestion([...forSugges]);
+        setQueryMulti(queryMulti.filter((query) => query !== object.desc));
+        console.log(queryMulti);
     };
+
+    const handleSearch = (value) => {
+        console.log([...forFilter])
+        if (value.length >= 3) {
+            forFilter = filteredArr.filter((obj) => obj.desc.toLowerCase().includes(value.toLowerCase()));
+            console.log([...forFilter])
+            SetFilteredArr([...forFilter]);
+        }else{
+            SetFilteredArr([...options]);
+        }
+    }
 
 
 
@@ -89,52 +104,54 @@ export default function MultiSelectListMenu({ options }) {
                         display: "flex", flexDirection: "row", alignItems: "center", p: "2px 5px", width: "100%", height: "40px", border: "0.5px solid llightgray"
                     }}>
                         <Search sx={{ m: "2px" }} fontSize='0.8rem' />
-                        <input className='search' placeholder='search' type="search" name="" id="" />
+                        <input value={searchText} onChange={(e) => { setSearchText(e.target.value); handleSearch(e.target.value) }} className='search' placeholder='search' type="search" name="" id="" />
                     </Stack>
 
-                    {suggestion.map((option, index) => (
-                        <div key={index}>
-                            {option !== null && <MenuItem
-                                key={option}
-                                selected
-                                onClick={(event) => handleSugesstionItemClick(event, index)}
-                            >
-                                <div className='content-cont'>
-                                    <Check fontSize='0.8rem' />
-                                    <div className='circle'>
-                                        <div>{option.logo}</div>
+                    <div style={{ maxHeight: "240px", height:"fit-content" , overflowY: "scroll" }}>
+                        {suggestion.map((option, index) => (
+                            <div key={index}>
+                                {option !== null && <MenuItem
+                                    key={option}
+                                    selected
+                                    onClick={(event) => handleSugesstionItemClick(event, option)}
+                                >
+                                    <div className='content-cont'>
+                                        <Check fontSize='0.8rem' />
+                                        <div className='circle'>
+                                            <div>{option.logo}</div>
+                                        </div>
+                                        <div>
+                                            <p style={{ fontSize: "0.9rem" }}>{option.heading}</p>
+                                            <p style={{ fontSize: "0.7rem" }}>{option.desc}</p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p style={{ fontSize: "0.9rem" }}>{option.heading}</p>
-                                        <p style={{ fontSize: "0.7rem" }}>{option.desc}</p>
-                                    </div>
-                                </div>
-                            </MenuItem>}
-                        </div>
-                    ))}
+                                </MenuItem>}
+                            </div>
+                        ))}
 
-                    <hr style={{ borderTop: "0.5px", backgroundColor: "gray", margin: "5px 0px" }} />
+                        <hr style={{ borderTop: "0.5px", backgroundColor: "gray", margin: "5px 0px" }} />
 
-                    <Typography sx={{ marginTop: "3px", color: "gray", fontSize: "0.7rem" }}>Suggestions</Typography>
+                        <Typography sx={{ marginTop: "3px", color: "gray", fontSize: "0.7rem" }}>Suggestions</Typography>
 
-                    {query.map((option, index) => (
-                        <div key={index}>
-                            {option !== null && <MenuItem
-                                key={option}
-                                onClick={(event) => handleMenuItemClick(event, index)}
-                            >
-                                <div className='content-cont'>
-                                    <div className='circle'>
-                                        <div>{option.logo}</div>
+                        {filteredArr.map((option, index) => (
+                            <div key={index}>
+                                {option !== null && <MenuItem
+                                    key={option}
+                                    onClick={(event) => handleMenuItemClick(event, option)}
+                                >
+                                    <div className='content-cont'>
+                                        <div className='circle'>
+                                            <div>{option.logo}</div>
+                                        </div>
+                                        <div>
+                                            <p style={{ fontSize: "0.9rem" }}>{option.heading}</p>
+                                            <p style={{ fontSize: "0.7rem" }}>{option.desc}</p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p style={{ fontSize: "0.9rem" }}>{option.heading}</p>
-                                        <p style={{ fontSize: "0.7rem" }}>{option.desc}</p>
-                                    </div>
-                                </div>
-                            </MenuItem>}
-                        </div>
-                    ))}
+                                </MenuItem>}
+                            </div>
+                        ))}
+                    </div>
                 </Box>
             </Menu>
         </div>
@@ -146,11 +163,11 @@ export default function MultiSelectListMenu({ options }) {
 
 // Handle Suggestion ------------------------------
 // setQuery([...query, suggestion[index]]);
-// filterArray.push(suggestion[index]);
-// setQuery([...filterArray]);
+// filteredArr.push(suggestion[index]);
+// setQuery([...filteredArr]);
 
 
 // Handle Menu
 // setSuggestion([...suggestion, options[index]]);
-// filterArray = filterArray.filter((obj) => obj.id !== options[index].id)
-// setQuery([...filterArray]);
+// filteredArr = filteredArr.filter((obj) => obj.id !== options[index].id)
+// setQuery([...filteredArr]);

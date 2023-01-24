@@ -13,7 +13,7 @@ import InnerMenu from "./InnerMenu.js"
 import CustomizedSlider from './CustomizedSlider';
 
 
-export default function NumericSelectItem({ range , setRange , options }) {
+export default function NumericSelectItem({ range, setRange, options }) {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [inBetween, setInBetween] = React.useState(false);

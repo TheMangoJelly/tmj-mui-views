@@ -22,6 +22,9 @@
 
 }
 
+::-webkit-scrollbar{
+    width: 0px;
+}
 
 input{
     outline: none;

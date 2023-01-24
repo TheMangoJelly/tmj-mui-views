@@ -1,6 +1,5 @@
 import * as React from 'react';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
@@ -9,9 +8,7 @@ import { Check, KeyboardArrowDown } from '@mui/icons-material';
 
 
 
-export default function SimpleListMenu({options}) {
-
-    const [query, setQuery] = React.useState(options);
+export default function SimpleListMenu({ setQuerySimple, options }) {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [selectedIndex, setSelectedIndex] = React.useState(1);
@@ -20,9 +17,10 @@ export default function SimpleListMenu({options}) {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleMenuItemClick = (event, index) => {
+    const handleMenuItemClick = (event, index ,option) => {
         setSelectedIndex(index);
         setAnchorEl(null);
+        setQuerySimple(option);
     };
 
     const handleClose = () => {
@@ -62,11 +60,11 @@ export default function SimpleListMenu({options}) {
                     role: 'listbox',
                 }}
             >
-                {query.map((option, index) => (
+                {options.map((option, index) => (
                     <MenuItem
                         key={option}
                         selected={index === selectedIndex}
-                        onClick={(event) => handleMenuItemClick(event, index)}
+                        onClick={(event) => handleMenuItemClick(event, index, option)}
                     >
                         <Check fontSize='0.8rem' sx={{ marginRight: "7px", visibility: `${index === selectedIndex ? "visible" : "hidden"}` }} />{option}
                     </MenuItem>

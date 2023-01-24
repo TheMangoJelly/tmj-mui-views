@@ -71,7 +71,7 @@ AirbnbThumbComponent.propTypes = {
     children: PropTypes.node,
 };
 
-export default function CustomizedSlider({range  , setRange}) {
+export default function CustomizedSlider({ range, setRange }) {
     const [sliderValue, setSliderValue] = React.useState([20, 37]);
 
     const handleChange = (event, newValue) => {
@@ -83,7 +83,7 @@ export default function CustomizedSlider({range  , setRange}) {
                 slots={{ thumb: AirbnbThumbComponent }}
                 getAriaLabel={(index) => (index === 0 ? 'Minimum price' : 'Maximum price')}
                 value={range}
-                onChange={ handleChange}
+                onChange={handleChange}
             />
         </Box>
     );
