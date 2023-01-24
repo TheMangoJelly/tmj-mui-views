@@ -11,17 +11,15 @@ import { Stack, Box } from '@mui/system';
 import "./style.css";
 
 
-const options = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursdays",
-];
-const suggestion = [];
+export default function MultiSelectListMenu({ options }) {
 
-export default function MultiSelectListMenu() {
+    const [query, setQuery] = React.useState(options);
+    const [suggestion, setSuggestion] = React.useState([]);
+    let filterArray = [...options];
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [selectedIndex, setSelectedIndex] = React.useState(1);
+
     const open = Boolean(anchorEl);
     const handleClickListItem = (event) => {
         setAnchorEl(event.currentTarget);
@@ -33,11 +31,15 @@ export default function MultiSelectListMenu() {
         suggestion.push(options[index]);
         options[index] = null;
     };
+    const handleSugesstionItemClick = (event, index) => {
+        setSelectedIndex(index);
+        console.log(index)
+        options.push(suggestion[index]);
+        suggestion[index] = null;
 
-    const handleArrayElements = (index) => {
-        suggestion.push(options[index]);
-        options[index] = null;
-    }
+    };
+
+
 
     const handleClose = () => {
         setAnchorEl(null);
@@ -77,6 +79,7 @@ export default function MultiSelectListMenu() {
                 }}
 
             >
+
                 <Box sx={{ p: "0px 5px" }}>
 
                     <Stack sx={{
@@ -90,28 +93,31 @@ export default function MultiSelectListMenu() {
                     </Stack>
 
                     {suggestion.map((option, index) => (
-                        <MenuItem
-                            key={option}
-                            selected
-                        >
-                            <div className='content-cont'>
-                                <Check fontSize='0.8rem' />
-                                <div className='circle'>
-                                    <div>MJ</div>
+                        <div key={index}>
+                            {option !== null && <MenuItem
+                                key={option}
+                                selected
+                                onClick={(event) => handleSugesstionItemClick(event, index)}
+                            >
+                                <div className='content-cont'>
+                                    <Check fontSize='0.8rem' />
+                                    <div className='circle'>
+                                        <div>{option.logo}</div>
+                                    </div>
+                                    <div>
+                                        <p style={{ fontSize: "0.9rem" }}>{option.heading}</p>
+                                        <p style={{ fontSize: "0.7rem" }}>{option.desc}</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p style={{ fontSize: "0.9rem" }}>Demo Line</p>
-                                    <p style={{ fontSize: "0.7rem" }}>{option}</p>
-                                </div>
-                            </div>
-                        </MenuItem>
+                            </MenuItem>}
+                        </div>
                     ))}
 
                     <hr style={{ borderTop: "0.5px", backgroundColor: "gray", margin: "5px 0px" }} />
 
                     <Typography sx={{ marginTop: "3px", color: "gray", fontSize: "0.7rem" }}>Suggestions</Typography>
 
-                    {options.map((option, index) => (
+                    {query.map((option, index) => (
                         <div key={index}>
                             {option !== null && <MenuItem
                                 key={option}
@@ -119,11 +125,11 @@ export default function MultiSelectListMenu() {
                             >
                                 <div className='content-cont'>
                                     <div className='circle'>
-                                        <div>MJ</div>
+                                        <div>{option.logo}</div>
                                     </div>
                                     <div>
-                                        <p style={{ fontSize: "0.9rem" }}>Demo Line</p>
-                                        <p style={{ fontSize: "0.7rem" }}>{option}</p>
+                                        <p style={{ fontSize: "0.9rem" }}>{option.heading}</p>
+                                        <p style={{ fontSize: "0.7rem" }}>{option.desc}</p>
                                     </div>
                                 </div>
                             </MenuItem>}
@@ -134,3 +140,17 @@ export default function MultiSelectListMenu() {
         </div>
     );
 }
+
+
+
+
+// Handle Suggestion ------------------------------
+// setQuery([...query, suggestion[index]]);
+// filterArray.push(suggestion[index]);
+// setQuery([...filterArray]);
+
+
+// Handle Menu
+// setSuggestion([...suggestion, options[index]]);
+// filterArray = filterArray.filter((obj) => obj.id !== options[index].id)
+// setQuery([...filterArray]);

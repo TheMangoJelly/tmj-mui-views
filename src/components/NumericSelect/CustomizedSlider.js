@@ -26,15 +26,15 @@ const AirbnbSlider = styled(Slider)(({ theme }) => ({
     height: 3,
     padding: '13px 0',
     '& .MuiSlider-thumb': {
-        display:"flex",
-        alignItems:"center",
-        justifyContent:"center",
-        gap:"2px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "2px",
         height: 16,
         width: 16,
         backgroundColor: '#fff',
         border: '1px solid gray',
-        padding:"5px",
+        padding: "5px",
         '&:hover': {
             boxShadow: '0 0 0 8px rgba(58, 133, 137, 0.16)',
         },
@@ -71,13 +71,19 @@ AirbnbThumbComponent.propTypes = {
     children: PropTypes.node,
 };
 
-export default function CustomizedSlider() {
+export default function CustomizedSlider({range  , setRange}) {
+    const [sliderValue, setSliderValue] = React.useState([20, 37]);
+
+    const handleChange = (event, newValue) => {
+        setRange(newValue);
+    };
     return (
         <Box sx={{ width: 320 }}>
             <AirbnbSlider
                 slots={{ thumb: AirbnbThumbComponent }}
                 getAriaLabel={(index) => (index === 0 ? 'Minimum price' : 'Maximum price')}
-                defaultValue={[20, 40]}
+                value={range}
+                onChange={ handleChange}
             />
         </Box>
     );

@@ -3,6 +3,7 @@ import ButtonSelect from "./components/ButtonSelect/ButtonSelect";
 import ButtonSelectDemo from "./components/ButtonSelectDemo/ButtonSelectDemo";
 import CalenderComponent from "./components/DateList/CalenderComponent";
 import DateListMenu from "./components/DateList/DateListMenu";
+import Home from "./components/home/Home";
 import MultiSelectListMenu from "./components/MultiSelectListMenu/MultiSelectListMenu";
 import InnerMenu from "./components/NumericSelect/InnerMenu";
 import NumericSelectItem from "./components/NumericSelect/NumericSelectItem";
@@ -16,9 +17,8 @@ function App() {
     <div className="App">
       {/* <BasicSelect /> */}
       {/* <ButtonSelectDemo /> */}
-      {/* <SimpleListMenu /> */}
-      {/* <MultiSelectListMenu /> */}
-      <NumericSelectItem />
+
+      <Home />
       {/* <DateListMenu /> */}
       {/* <CalenderComponent/> */}
     </div>

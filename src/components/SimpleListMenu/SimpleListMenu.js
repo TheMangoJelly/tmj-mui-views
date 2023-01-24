@@ -8,14 +8,11 @@ import { Button } from '@mui/material';
 import { Check, KeyboardArrowDown } from '@mui/icons-material';
 
 
-const options = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursdays",
-];
 
-export default function SimpleListMenu() {
+export default function SimpleListMenu({options}) {
+
+    const [query, setQuery] = React.useState(options);
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [selectedIndex, setSelectedIndex] = React.useState(1);
     const open = Boolean(anchorEl);
@@ -65,7 +62,7 @@ export default function SimpleListMenu() {
                     role: 'listbox',
                 }}
             >
-                {options.map((option, index) => (
+                {query.map((option, index) => (
                     <MenuItem
                         key={option}
                         selected={index === selectedIndex}

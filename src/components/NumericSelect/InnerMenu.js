@@ -8,14 +8,10 @@ import { Button } from '@mui/material';
 import { Check, KeyboardArrowDown } from '@mui/icons-material';
 
 
-const options = [
-    "Less Than",
-    "Greter than",
-    "Equal to",
-    "In between",
-];
+export default function InnerMenu({ options, setInBetween }) {
+    const [query, setQuery] = React.useState(options);
 
-export default function InnerMenu({setInBetween}) {
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [selectedIndex, setSelectedIndex] = React.useState(1);
     const open = Boolean(anchorEl);
@@ -26,9 +22,9 @@ export default function InnerMenu({setInBetween}) {
     const handleMenuItemClick = (event, index) => {
         setSelectedIndex(index);
         setAnchorEl(null);
-        if(index === 3){
+        if (index === 3) {
             setInBetween(true);
-        }else{
+        } else {
             setInBetween(false);
         }
     };
@@ -37,8 +33,12 @@ export default function InnerMenu({setInBetween}) {
         setAnchorEl(null);
     };
 
+    React.useEffect(() => {
+        selectedIndex === 1 && setInBetween(false);
+    }, [selectedIndex]);
+
     return (
-        <div style={{minWidth:"150px"}}>
+        <div style={{ minWidth: "150px" }}>
             <List
                 component="nav"
                 aria-label="Device settings"
@@ -52,7 +52,7 @@ export default function InnerMenu({setInBetween}) {
                     aria-controls="lock-menu"
                     aria-expanded={open ? 'true' : undefined}
                     onClick={handleClickListItem}
-                    sx={{ border: "0.5px solid lightgray", borderRadius: "7px",fontSize:"0.9rem" }}
+                    sx={{ border: "0.5px solid lightgray", borderRadius: "7px", fontSize: "0.9rem" }}
                 >
                     <ListItemText
                         secondary={options[selectedIndex]}
