@@ -1,6 +1,5 @@
 import * as React from 'react';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
@@ -8,9 +7,7 @@ import { Button } from '@mui/material';
 import { Check, KeyboardArrowDown } from '@mui/icons-material';
 
 
-export default function InnerMenu({ options, setInBetween }) {
-    const [query, setQuery] = React.useState(options);
-
+export default function InnerMenu({setInitQuery , options, setInBetween , setQueryNumeric }) {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [selectedIndex, setSelectedIndex] = React.useState(1);
@@ -22,10 +19,29 @@ export default function InnerMenu({ options, setInBetween }) {
     const handleMenuItemClick = (event, index) => {
         setSelectedIndex(index);
         setAnchorEl(null);
-        if (index === 3) {
-            setInBetween(true);
-        } else {
-            setInBetween(false);
+       
+
+        switch (index) {
+            case 0:
+                setInitQuery("lte=");
+                setInBetween(false);
+                break;
+            case 1:
+                setInitQuery("gte=");
+                setInBetween(false);
+                break;
+            case 2:
+                setInitQuery("eq=");
+                setInBetween(false);
+                break;
+            case 3:
+                setInBetween(true);
+                setInitQuery("bet=");
+                setQueryNumeric("bet=")
+                break;
+
+            default:
+                break;
         }
     };
 

@@ -71,11 +71,16 @@ AirbnbThumbComponent.propTypes = {
     children: PropTypes.node,
 };
 
-export default function CustomizedSlider({ range, setRange }) {
-    const [sliderValue, setSliderValue] = React.useState([20, 37]);
+export default function CustomizedSlider({ setStartValue, setEndValue, range, setRange, setQueryNumeric , initQuery }) {
 
     const handleChange = (event, newValue) => {
         setRange(newValue);
+        setStartValue(newValue[0]);
+        setEndValue(newValue[1]);
+
+        const query = initQuery.split("=")[0];
+        // setInitQuery(query + "=" + num);
+        setQueryNumeric(query + "=" + Number(newValue[0]) + "-" + Number(newValue[1]))
     };
     return (
         <Box sx={{ width: 320 }}>

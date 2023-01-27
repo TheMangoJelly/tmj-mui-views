@@ -1,6 +1,6 @@
-import { set } from 'date-fns';
 import React, { useEffect, useState } from 'react';
 import MultiSelectListMenu from '../MultiSelectListMenu/MultiSelectListMenu';
+// import MultiSelectDemo from '../MultiSelectListMenu/MultiSelectDemo';
 import NumericSelectItem from '../NumericSelect/NumericSelectItem';
 import SimpleListMenu from '../SimpleListMenu/SimpleListMenu';
 
@@ -24,61 +24,7 @@ const Home = () => {
 
 
     const optionsForMulti = [
-        {
-            id: 1,
-            logo: "MJ",
-            heading: "Demolime 1",
-            desc: "MOnday"
-        },
-        {
-            id: 2,
-            logo: "MJ",
-            heading: "Demolime 2",
-            desc: "Tuesday"
-        },
-        {
-            id: 3,
-            logo: "MJ",
-            heading: "Demolime 3",
-            desc: "Wednesday"
-        },
-        {
-            id: 4,
-            logo: "MJ",
-            heading: "Demolime 4",
-            desc: "Thursday"
-        },
-        // {
-        //     id: 4,
-        //     logo: "MJ",
-        //     heading: "Demolime 4",
-        //     desc: "Thursday"
-        // },
-        // {
-        //     id: 4,
-        //     logo: "MJ",
-        //     heading: "Demolime 4",
-        //     desc: "Thursday"
-        // },
-        // {
-        //     id: 4,
-        //     logo: "MJ",
-        //     heading: "Demolime 4",
-        //     desc: "Thursday"
-        // },
-        // {
-        //     id: 4,
-        //     logo: "MJ",
-        //     heading: "Demolime 4",
-        //     desc: "Thursday"
-        // },
-        // {
-        //     id: 4,
-        //     logo: "MJ",
-        //     heading: "Demolime 4",
-        //     desc: "Thursday"
-        // },
-
+        "Monday", "Tuesday", "wednesday", "thursday", "tun"
     ];
 
     const optionsForNumeric = [
@@ -89,7 +35,7 @@ const Home = () => {
     ];
 
     const createQuery = () => {
-        if (querySimple === "" && queryMulti.length === 0) {
+        if (querySimple === "" && queryMulti.length === 0 && queryNumeric === "") {
             console.log(query);
         } else if (queryMulti.length === 0) {
             setQuery("query=" + "simple=" + querySimple);
@@ -98,18 +44,27 @@ const Home = () => {
         } else {
             setQuery("query=" + "simple=" + querySimple + "multi=" + queryMulti.toString());
         }
-        console.log(query);
+        console.log(queryNumeric);
     }
 
     useEffect(() => {
         createQuery();
     }, [query, queryMulti, querySimple, queryNumeric]);
 
+
+
+
+
     return (
         <>
             <div style={{ padding: "1rem", display: "flex", gap: "2rem" }}>
                 <SimpleListMenu setQuerySimple={setQuerySimple} options={optionsForSimple} />
+
+                {/* This is my multiselectMenu file */}
                 <MultiSelectListMenu setQueryMulti={setQueryMulti} queryMulti={queryMulti} options={optionsForMulti} />
+
+                {/* This is  Your file of multiSelect */}
+                {/* <MultiSelectDemo setQueryMulti={setQueryMulti} queryMulti={queryMulti} options={optionsForMulti} /> */}
                 <NumericSelectItem setQueryNumeric={setQueryNumeric} setRange={setRange} range={range} options={optionsForNumeric} />
             </div>
         </>
